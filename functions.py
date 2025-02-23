@@ -37,14 +37,12 @@ def build_graph(tasks):
     # We add initial and terminal task
     total_vertices = N + 2
     matrix = [[None for i in range(total_vertices)] for j in range(total_vertices)]
-    print(matrix)
     
     # Iterate from task 1 to last 0 being the initial task (to attribute links with alpha elements)
     for i in range(1, N+1):
         #  if a task as no predecessor, then we set alpha as a predecessor of the task in the matrix
         if len(tasks[i]['predecessors']) == 0:
             matrix[0][i] = 0
-    print(matrix)
         
     
     
@@ -57,7 +55,6 @@ def build_graph(tasks):
                 continue
             # Set the duration of task p (predecessor of i) in the matrix 
             matrix[p][i] = tasks[p]['duration']
-    print(matrix)
     
     # Create a set to ensure no duplicate element
     used_as_pred = set()
@@ -75,3 +72,33 @@ def build_graph(tasks):
             matrix[i][N+1] = tasks[i]['duration']
     
     return matrix, total_vertices
+
+
+
+def display_matrix(matrix, total_vertices):
+    cell_width = 5  # Width of each cell
+    # Build horizontal border as : +-----+-----+ 
+    h_border = '+' + '+'.join(['-' * cell_width] * (total_vertices + 1)) + '+'
+
+    # Join empty cell to task list
+    header_cells = [''] + [str(j) for j in range(total_vertices)]
+    # Build label layer as : |     |  0  |  1  |  2  |  ... |
+    header_row = "|" + "|".join(cell.center(cell_width) for cell in header_cells) + "|"
+
+    print("\nMatrice des valeurs")
+    print(h_border)
+    print(header_row)
+    print(h_border)
+
+    # Iterate for each vertices 
+    for i in range(total_vertices):
+        # Set first cell (name) as the task we iterate over
+        row_cells = [str(i)]
+        for j in range(total_vertices):
+            # Use * is value is None, else we append the duration of the task
+            cell = "*" if matrix[i][j] is None else str(matrix[i][j])
+            row_cells.append(cell)
+        # Build |  i  |  *  |  *  |  *  |  3  |  ... |
+        row_str = "|" + "|".join(cell.center(cell_width) for cell in row_cells) + "|"
+        print(row_str)
+        print(h_border)

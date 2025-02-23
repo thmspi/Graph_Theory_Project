@@ -1,4 +1,4 @@
-import functions
+import functions as f
 import os
 
 def main():
@@ -10,9 +10,11 @@ def main():
         if not os.path.exists(filename):
             print("Fichier non trouvé. Réessayez.")
             continue
-        tasks = read_file(filename)
+        tasks = f.read_file(filename)
         
-        matrix, total_vertices = build_graph(tasks)
+        matrix, total_vertices = f.build_graph(tasks)
+
+        f.display_matrix(matrix, total_vertices)
 
 if __name__ == "__main__":
     main()
