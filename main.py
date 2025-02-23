@@ -12,6 +12,7 @@ def main():
             continue
         tasks = read_file(filename)
         
+        matrix, total_vertices = build_graph(tasks)
 
 if __name__ == "__main__":
     main()
