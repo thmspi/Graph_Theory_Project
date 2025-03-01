@@ -102,3 +102,63 @@ def display_matrix(matrix, total_vertices):
         row_str = "|" + "|".join(cell.center(cell_width) for cell in row_cells) + "|"
         print(row_str)
         print(h_border)
+
+
+def check_negative_arcs(matrix, total_vertices):
+    
+    print("\nVérification des arcs négatifs")
+    
+    # Iterate for each vertices
+    for i in range(total_vertices):
+        for j in range(total_vertices):
+            # Check if there is an arc and its weight is negative
+            if matrix[i][j] is not None and matrix[i][j] < 0:
+                print(f"Arc négatif détecté : {i} -> {j} = {matrix[i][j]}")
+                return False # Return False if a negative arc is found and print its details
+    
+    print("Aucun arc négatif trouvé")
+    return True # Return True if all arcs have positive weights
+
+def detect_cycles(matrix, total_vertices):
+    print("\nDétection des circuits")
+    
+    # Initialize an array to store the in-degree for each vertex
+    in_degree = [0] * total_vertices
+    
+    # Compute the in-degree for each vertex by counting incoming edges
+    for j in range(total_vertices):
+        for i in range(total_vertices):
+            if matrix[i][j] is not None:
+                in_degree[j] += 1
+    
+    # Create a list of vertices with zero in-degree 
+    entry_points = [i for i in range(total_vertices) if in_degree[i] == 0]
+    sorted_order = []
+    
+    while entry_points:
+        print("Points d’entrée :", " ".join(map(str, entry_points)))
+        
+        # Remove the first entry point from the list and process it
+        u = entry_points.pop(0)
+        print(f"Suppression du point d’entrée : {u}")
+        sorted_order.append(u)
+        
+        # Decrease the in-degree for each successor of the removed vertex
+        for v in range(total_vertices):
+            if matrix[u][v] is not None:
+                in_degree[v] -= 1
+                if in_degree[v] == 0:
+                    entry_points.append(v)
+        
+        # Identify remaining vertices that still have incoming edges
+        remaining = [i for i in range(total_vertices) if i not in sorted_order and in_degree[i] > 0]
+        print("Sommets restants :", " ".join(map(str, remaining)) if remaining else "Aucun")
+    
+    # If not all vertices have been processed, there is a cycle in the graph
+    if len(sorted_order) != total_vertices:
+        print("Il y a un circuit dans le graphe.")
+        return False  # A cycle exists
+    
+    print("Il n’y a pas de circuit.")
+    return True  # No cycles detected
+

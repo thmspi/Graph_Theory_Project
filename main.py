@@ -15,6 +15,15 @@ def main():
         matrix, total_vertices = f.build_graph(tasks)
 
         f.display_matrix(matrix, total_vertices)
+        
+        if not f.check_negative_arcs(matrix, total_vertices):
+            print("Le graphe contient des arcs négatifs. Veuillez utiliser un autre tableau de contraintes.")
+            continue
+        
+        has_cycle = f.detect_cycles(matrix, total_vertices)
+        if not has_cycle:
+            print("Le graphe n'est pas un graphe d'ordonnancement (circuit détecté). Veuillez utiliser un autre tableau de contraintes.")
+            continue
 
 if __name__ == "__main__":
     main()
