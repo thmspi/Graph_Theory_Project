@@ -162,3 +162,42 @@ def detect_cycles(matrix, total_vertices):
     print("Il n’y a pas de circuit.")
     return True  # No cycles detected
 
+def ranks(matrix, total_vertices):
+    print("\nCalcul des rangs")
+    # Number of predecessors for each vertex
+    in_degree = [0] * total_vertices
+
+    # Compute the in-degree for each vertex by counting incoming edges
+    for i in range(total_vertices):
+        for j in range(total_vertices):
+            if matrix[i][j] is not None:
+                in_degree[j] += 1
+
+    # Create a list of vertices with zero in-degree (no predecessor)
+    entry_points = [i for i in range(total_vertices) if in_degree[i] == 0]
+
+    # Create a list of ranks for each vertex
+    rank = [-1] * total_vertices
+
+    # Initialisation
+    k = 0
+
+    while entry_points:
+        # Create a list of new vertices with the rank k+1
+        sorted_order = []
+
+        for u in entry_points:
+            rank[u] = k
+            for v in range(total_vertices):
+                if matrix[u][v] is not None:
+                    in_degree[v] -= 1 # We make the vertex u disappear, so v losse one predecessor
+                    if in_degree[v] == 0:
+                        sorted_order.append(v) # New vertex without predecessors
+
+        entry_points = sorted_order
+        k += 1
+
+    # Display each rank
+    print("Pour chaque sommet : ")
+    for i in range(total_vertices):
+        print(f"Sommet {i} : Rang {rank[i]}")
