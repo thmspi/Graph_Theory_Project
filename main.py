@@ -14,6 +14,8 @@ def main():
         
         matrix, total_vertices = f.build_graph(tasks)
 
+        f.display_graph_arcs(matrix, total_vertices)
+
         f.display_matrix(matrix, total_vertices)
         
         if not f.check_negative_arcs(matrix, total_vertices):
@@ -28,6 +30,8 @@ def main():
         rank = f.ranks(matrix, total_vertices)
 
         earliest_dates = f.earliest_start_schedule(tasks, rank)
+
+        
   
 if __name__ == "__main__":
     main()

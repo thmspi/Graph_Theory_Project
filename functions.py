@@ -75,6 +75,23 @@ def build_graph(tasks):
 
 
 
+def display_graph_arcs(arcs, total_vertices):
+
+    # Print the header for graph creation
+    print("* Création du graphe d’ordonnancement :")
+    
+    # Print the total number of vertices
+    print(f"{total_vertices} sommets")
+    
+    # Print the total number of arcs
+    print(f"{len(arcs)} arcs")
+    
+    # Print each arc in the format "source -> destination = weight"
+    for arc in arcs:
+        print(f"{arc[0]} -> {arc[1]} = {arc[2]}")
+
+
+
 def display_matrix(matrix, total_vertices):
     cell_width = 5  # Width of each cell
     # Build horizontal border as : +-----+-----+ 
