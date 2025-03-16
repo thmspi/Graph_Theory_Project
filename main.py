@@ -25,7 +25,9 @@ def main():
             print("Le graphe n'est pas un graphe d'ordonnancement (circuit détecté). Veuillez utiliser un autre tableau de contraintes.")
             continue
 
-        f.ranks(matrix, total_vertices)
-        
+        rank = f.ranks(matrix, total_vertices)
+
+        earliest_dates = f.earliest_start_schedule(tasks, rank)
+  
 if __name__ == "__main__":
     main()
