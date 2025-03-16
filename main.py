@@ -20,10 +20,12 @@ def main():
             print("Le graphe contient des arcs négatifs. Veuillez utiliser un autre tableau de contraintes.")
             continue
         
-        has_cycle = f.detect_cycles(matrix, total_vertices)
+        has_cycle, sorted_order = f.detect_cycles(matrix, total_vertices)
         if not has_cycle:
             print("Le graphe n'est pas un graphe d'ordonnancement (circuit détecté). Veuillez utiliser un autre tableau de contraintes.")
             continue
 
+        f.ranks(matrix, total_vertices)
+        
 if __name__ == "__main__":
     main()
