@@ -14,24 +14,25 @@ def main():
         
         matrix, total_vertices = f.build_graph(tasks)
 
-        f.display_graph_arcs(matrix, total_vertices)
-
         f.display_matrix(matrix, total_vertices)
-        
+   
         if not f.check_negative_arcs(matrix, total_vertices):
             print("Le graphe contient des arcs négatifs. Veuillez utiliser un autre tableau de contraintes.")
             continue
         
-        has_cycle, sorted_order = f.detect_cycles(matrix, total_vertices)
+        has_cycle = f.detect_cycles(matrix, total_vertices)
         if not has_cycle:
             print("Le graphe n'est pas un graphe d'ordonnancement (circuit détecté). Veuillez utiliser un autre tableau de contraintes.")
             continue
 
         rank = f.ranks(matrix, total_vertices)
 
-        earliest_dates = f.earliest_start_schedule(tasks, rank)
-
+        earliest_dates = f.earliest_start_schedule(matrix, rank, total_vertices)
+        latest_dates = f.latest_start_schedule(matrix, earliest_dates, total_vertices)
+    
+        
         
   
 if __name__ == "__main__":
     main()
+

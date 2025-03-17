@@ -221,7 +221,7 @@ def ranks(matrix, total_vertices):
 
     return rank
 
-
+"""
 def earliest_start_schedule (tasks, rank):
     print("\nCalendrier au plus tôt")
 
@@ -253,3 +253,84 @@ def earliest_start_schedule (tasks, rank):
 
     # Return earliest_dates to compute critical paths
     return earliest_dates
+"""
+def earliest_start_schedule (matrix, rank, total_vertices):
+    print("\nCalendrier au plus tôt")
+
+    earliest_dates = {task_id: 0 for task_id in range(total_vertices)}
+    chosen_pred = {task_id: None for task_id in range(total_vertices)} # The optimal predecessor with the highest date
+
+    # Sort tasks by rank
+    sorted_tasks = sorted(range(total_vertices), key=lambda task_id: (rank[task_id], task_id))
+
+    for task_id in sorted_tasks:
+        preds = [p for p in range(total_vertices) if matrix[p][task_id] is not None]
+        if preds:
+            best_pre = None
+            best_val = 0
+            for p in preds: # We search the maximum
+                val = earliest_dates[p] + matrix[p][task_id]
+                if val > best_val:
+                    best_val = val
+                    best_pre = p
+            earliest_dates[task_id] = best_val
+            chosen_pred[task_id] = best_pre
+
+    # Display
+    for t in sorted_tasks:
+        if chosen_pred[t] is not None:
+            print(f"Sommet {t} : {earliest_dates[t]} à partir de {chosen_pred[t]}")
+        else:
+            print(f"Sommet {t} : {earliest_dates[t]}")
+
+
+    # Return earliest_dates to compute critical paths
+    return earliest_dates
+
+
+def latest_start_schedule(matrix, earliest_dates, total_vertices):
+    print("\nCalendrier au plus tard")
+    
+    # Initialize latest dates and chosen successors
+    latest_dates = {task_id: float('inf') for task_id in range(total_vertices)}
+    chosen_succ = {task_id: None for task_id in range(total_vertices)}  
+    
+    # Find the final task (omega) and set its latest date
+    omega = max(earliest_dates, key=earliest_dates.get)
+    latest_dates[omega] = earliest_dates[omega]  
+    
+    # Sort tasks in descending order of earliest dates
+    sorted_tasks = sorted(range(total_vertices), key=lambda task_id: -earliest_dates[task_id])
+    
+    # Calculate latest start dates for each task
+    for task_id in sorted_tasks:
+        succs = [s for s in range(total_vertices) if matrix[task_id][s] is not None]
+        if succs:
+            best_succ = None
+            best_val = float('inf')
+            for s in succs:
+                val = latest_dates[s] - matrix[task_id][s]
+                if val < best_val:
+                    best_val = val
+                    best_succ = s
+            latest_dates[task_id] = best_val
+            chosen_succ[task_id] = best_succ
+    
+    # Set the latest start date of the first task (alpha) to 0
+    alpha = 0  
+    latest_dates[alpha] = 0
+    chosen_succ[alpha] = 1  
+    
+    # Display
+    for t in range(total_vertices):
+        if chosen_succ[t] is not None:
+            print(f"Sommet {t} : {latest_dates[t]} à partir de {chosen_succ[t]}")
+        else:
+            print(f"Sommet {t} : {latest_dates[t]}")
+    
+    return latest_dates
+
+
+
+
+
