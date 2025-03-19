@@ -221,39 +221,7 @@ def ranks(matrix, total_vertices):
 
     return rank
 
-"""
-def earliest_start_schedule (tasks, rank):
-    print("\nCalendrier au plus tôt")
 
-    earliest_dates = {task_id: 0 for task_id in tasks}
-    chosen_pred = {task_id: None for task_id in tasks} # The optimal predecessor with the highest date
-
-    # Sort tasks by rank
-    sorted_tasks = sorted(tasks.keys(), key=lambda task_id: (rank[task_id], task_id))
-
-    for task_id in sorted_tasks:
-        preds = tasks[task_id]['predecessors']
-        if preds:
-            best_pre = None
-            best_val = 0
-            for p in preds: # We search the maximum
-                val = earliest_dates[p] + tasks[p]['duration']
-                if val > best_val:
-                    best_val = val
-                    best_pre = p
-            earliest_dates[task_id] = best_val
-            chosen_pred[task_id] = best_pre
-
-    # Display
-    for t in sorted(earliest_dates.keys()):
-        if chosen_pred[t] is not None:
-            print(f"Sommet {t} : {earliest_dates[t]} à partir de {chosen_pred[t]}")
-        else:
-            print(f"Sommet {t} : {earliest_dates[t]}")
-
-    # Return earliest_dates to compute critical paths
-    return earliest_dates
-"""
 def earliest_start_schedule (matrix, rank, total_vertices):
     print("\nCalendrier au plus tôt")
 
