@@ -299,6 +299,42 @@ def latest_start_schedule(matrix, earliest_dates, total_vertices):
     return latest_dates
 
 
+def compute_margins(weights, total_vertices, E, L):
+    margins = {}
+    # for  each arc (u, v) : Margin = L(v) - E(u) - weights(u,v)
+    print("\nMarges sur les arcs :")
+    for u in range(total_vertices):
+        for v in range(total_vertices):
+            if weights[u][v] is not None:
+                margin = L[v] - E[u] - weights[u][v]
+                # Add the computed margin to the dictionary
+                margins[(u, v)] = margin
+                print(f"Arc {u} -> {v} : Marge = {margin}")
+    return margins
 
 
+def find_critical_paths(matrix, total_vertices, margins):
+    # Initialization
+    finish = total_vertices - 1
+    critical_paths = []
 
+    # Depth-First Search Algorithm
+    def dfs(current, path):
+        if current == finish:
+            critical_paths.append(path.copy())
+            return
+        for v in range(total_vertices):
+            if matrix[current][v] is not None:
+                # The program continues only if the current path is a critic one (margin = 0)
+                if margins.get((current, v), None) == 0:
+                    path.append(v)
+                    dfs(v, path)
+                    path.pop()
+    
+    dfs(0, [0])
+    
+    # Display
+    print("\nChemin(s) critique(s) :")
+    for path in critical_paths:
+        print(" -> ".join(map(str, path)))
+    return critical_paths

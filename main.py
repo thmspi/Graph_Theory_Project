@@ -30,7 +30,15 @@ def main():
         earliest_dates = f.earliest_start_schedule(matrix, rank, total_vertices)
         latest_dates = f.latest_start_schedule(matrix, earliest_dates, total_vertices)
     
+        margins = f.compute_margins(matrix, total_vertices, earliest_dates, latest_dates)
         
+        f.find_critical_paths(matrix, total_vertices, margins)
+
+        print("\nTraitement terminé pour ce tableau de contraintes.\n")
+        print("Voulez-vous traiter un autre tableau ? (o/n)")
+        answer = input().strip().lower()
+        if answer != 'o':
+            break
         
   
 if __name__ == "__main__":
