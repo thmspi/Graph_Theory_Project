@@ -75,24 +75,24 @@ def build_graph(tasks):
 
 
 
-def display_graph_arcs(arcs, total_vertices):
+def display_graph_arcs(arcs, total_vertices, trace):
 
     # Print the header for graph creation
-    print("* Création du graphe d’ordonnancement :")
+    trace.append("* Création du graphe d’ordonnancement :")
     
     # Print the total number of vertices
-    print(f"{total_vertices} sommets")
+    trace.append(f"{total_vertices} sommets")
     
     # Print the total number of arcs
-    print(f"{len(arcs)} arcs")
+    trace.append(f"{len(arcs)} arcs")
     
     # Print each arc in the format "source -> destination = weight"
     for arc in arcs:
-        print(f"{arc[0]} -> {arc[1]} = {arc[2]}")
+        trace.append(f"{arc[0]} -> {arc[1]} = {arc[2]}")
 
 
 
-def display_matrix(matrix, total_vertices):
+def display_matrix(matrix, total_vertices, trace):
     cell_width = 5  # Width of each cell
     # Build horizontal border as : +-----+-----+ 
     h_border = '+' + '+'.join(['-' * cell_width] * (total_vertices + 1)) + '+'
@@ -102,10 +102,10 @@ def display_matrix(matrix, total_vertices):
     # Build label layer as : |     |  0  |  1  |  2  |  ... |
     header_row = "|" + "|".join(cell.center(cell_width) for cell in header_cells) + "|"
 
-    print("\nMatrice des valeurs")
-    print(h_border)
-    print(header_row)
-    print(h_border)
+    trace.append("\nMatrice des valeurs")
+    trace.append(h_border)
+    trace.append(header_row)
+    trace.append(h_border)
 
     # Iterate for each vertices 
     for i in range(total_vertices):
@@ -117,27 +117,27 @@ def display_matrix(matrix, total_vertices):
             row_cells.append(cell)
         # Build |  i  |  *  |  *  |  *  |  3  |  ... |
         row_str = "|" + "|".join(cell.center(cell_width) for cell in row_cells) + "|"
-        print(row_str)
-        print(h_border)
+        trace.append(row_str)
+        trace.append(h_border)
 
 
-def check_negative_arcs(matrix, total_vertices):
+def check_negative_arcs(matrix, total_vertices, trace):
     
-    print("\nVérification des arcs négatifs")
+    trace.append("\nVérification des arcs négatifs")
     
     # Iterate for each vertices
     for i in range(total_vertices):
         for j in range(total_vertices):
             # Check if there is an arc and its weight is negative
             if matrix[i][j] is not None and matrix[i][j] < 0:
-                print(f"Arc négatif détecté : {i} -> {j} = {matrix[i][j]}")
+                trace.append(f"Arc négatif détecté : {i} -> {j} = {matrix[i][j]}")
                 return False # Return False if a negative arc is found and print its details
     
-    print("Aucun arc négatif trouvé")
+    trace.append("Aucun arc négatif trouvé")
     return True # Return True if all arcs have positive weights
 
-def detect_cycles(matrix, total_vertices):
-    print("\nDétection des circuits")
+def detect_cycles(matrix, total_vertices, trace):
+    trace.append("\nDétection des circuits")
     
     # Initialize an array to store the in-degree for each vertex
     in_degree = [0] * total_vertices
@@ -153,11 +153,12 @@ def detect_cycles(matrix, total_vertices):
     sorted_order = []
     
     while entry_points:
-        print("Points d’entrée :", " ".join(map(str, entry_points)))
+        str_result = "Points d’entrée :"+" ".join(map(str, entry_points))
+        trace.append(str_result)
         
         # Remove the first entry point from the list and process it
         u = entry_points.pop(0)
-        print(f"Suppression du point d’entrée : {u}")
+        trace.append(f"Suppression du point d’entrée : {u}")
         sorted_order.append(u)
         
         # Decrease the in-degree for each successor of the removed vertex
@@ -169,18 +170,19 @@ def detect_cycles(matrix, total_vertices):
         
         # Identify remaining vertices that still have incoming edges
         remaining = [i for i in range(total_vertices) if i not in sorted_order and in_degree[i] > 0]
-        print("Sommets restants :", " ".join(map(str, remaining)) if remaining else "Aucun")
+        str_result = "Sommets restants :"+ " ".join(map(str, remaining)) if remaining else "Aucun"
+        trace.append(str_result)
     
     # If not all vertices have been processed, there is a cycle in the graph
     if len(sorted_order) != total_vertices:
-        print("Il y a un circuit dans le graphe.")
+        trace.append("Il y a un circuit dans le graphe.")
         return False  # A cycle exists
     
-    print("Il n’y a pas de circuit.")
+    trace.append("Il n’y a pas de circuit.")
     return True  # No cycles detected
 
-def ranks(matrix, total_vertices):
-    print("\nCalcul des rangs")
+def ranks(matrix, total_vertices, trace):
+    trace.append("\nCalcul des rangs")
     # Number of predecessors for each vertex
     in_degree = [0] * total_vertices
 
@@ -215,15 +217,15 @@ def ranks(matrix, total_vertices):
         k += 1
 
     # Display each rank
-    print("Pour chaque sommet : ")
+    trace.append("Pour chaque sommet : ")
     for i in range(total_vertices):
-        print(f"Sommet {i} : Rang {rank[i]}")
+        trace.append(f"Sommet {i} : Rang {rank[i]}")
 
     return rank
 
 
-def earliest_start_schedule (matrix, rank, total_vertices):
-    print("\nCalendrier au plus tôt")
+def earliest_start_schedule (matrix, rank, total_vertices, trace):
+    trace.append("\nCalendrier au plus tôt")
 
     earliest_dates = {task_id: 0 for task_id in range(total_vertices)}
     chosen_pred = {task_id: None for task_id in range(total_vertices)} # The optimal predecessor with the highest date
@@ -247,17 +249,17 @@ def earliest_start_schedule (matrix, rank, total_vertices):
     # Display
     for t in sorted_tasks:
         if chosen_pred[t] is not None:
-            print(f"Sommet {t} : {earliest_dates[t]} à partir de {chosen_pred[t]}")
+            trace.append(f"Sommet {t} : {earliest_dates[t]} à partir de {chosen_pred[t]}")
         else:
-            print(f"Sommet {t} : {earliest_dates[t]}")
+            trace.append(f"Sommet {t} : {earliest_dates[t]}")
 
 
     # Return earliest_dates to compute critical paths
     return earliest_dates
 
 
-def latest_start_schedule(matrix, earliest_dates, total_vertices):
-    print("\nCalendrier au plus tard")
+def latest_start_schedule(matrix, earliest_dates, total_vertices, trace):
+    trace.append("\nCalendrier au plus tard")
     
     # Initialize latest dates and chosen successors
     latest_dates = {task_id: float('inf') for task_id in range(total_vertices)}
@@ -292,28 +294,28 @@ def latest_start_schedule(matrix, earliest_dates, total_vertices):
     # Display
     for t in range(total_vertices):
         if chosen_succ[t] is not None:
-            print(f"Sommet {t} : {latest_dates[t]} à partir de {chosen_succ[t]}")
+            trace.append(f"Sommet {t} : {latest_dates[t]} à partir de {chosen_succ[t]}")
         else:
-            print(f"Sommet {t} : {latest_dates[t]}")
+            trace.append(f"Sommet {t} : {latest_dates[t]}")
     
     return latest_dates
 
 
-def compute_margins(weights, total_vertices, E, L):
+def compute_margins(weights, total_vertices, E, L, trace):
     margins = {}
     # for  each arc (u, v) : Margin = L(v) - E(u) - weights(u,v)
-    print("\nMarges sur les arcs :")
+    trace.append("\nMarges sur les arcs :")
     for u in range(total_vertices):
         for v in range(total_vertices):
             if weights[u][v] is not None:
                 margin = L[v] - E[u] - weights[u][v]
                 # Add the computed margin to the dictionary
                 margins[(u, v)] = margin
-                print(f"Arc {u} -> {v} : Marge = {margin}")
+                trace.append(f"Arc {u} -> {v} : Marge = {margin}")
     return margins
 
 
-def find_critical_paths(matrix, total_vertices, margins):
+def find_critical_paths(matrix, total_vertices, margins, trace):
     # Initialization
     finish = total_vertices - 1
     critical_paths = []
@@ -334,7 +336,14 @@ def find_critical_paths(matrix, total_vertices, margins):
     dfs(0, [0])
     
     # Display
-    print("\nChemin(s) critique(s) :")
+    trace.append("\nChemin(s) critique(s) :")
     for path in critical_paths:
-        print(" -> ".join(map(str, path)))
+        trace.append(" -> ".join(map(str, path)))
     return critical_paths
+
+def write_trace(trace_file, trace):
+    with open(trace_file, 'w') as f:
+        f.write("Trace des itérations:\n")
+        for line in trace:
+            f.write(line + "\n")
+
