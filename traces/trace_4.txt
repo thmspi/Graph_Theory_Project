@@ -1,0 +1,144 @@
+Trace des itérations:
+
+Matrice des valeurs
++-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+
+|     |  0  |  1  |  2  |  3  |  4  |  5  |  6  |  7  |  8  |  9  |  10 |  11 |  12 |
++-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+
+|  0  |  *  |  0  |  0  |  *  |  *  |  *  |  *  |  *  |  *  |  *  |  *  |  *  |  *  |
++-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+
+|  1  |  *  |  *  |  *  |  *  |  3  |  *  |  *  |  *  |  *  |  *  |  *  |  *  |  *  |
++-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+
+|  2  |  *  |  *  |  *  |  2  |  *  |  *  |  *  |  *  |  *  |  *  |  *  |  *  |  *  |
++-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+
+|  3  |  *  |  *  |  *  |  *  |  *  |  *  |  *  |  *  |  *  |  *  |  3  |  *  |  *  |
++-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+
+|  4  |  *  |  *  |  *  |  *  |  *  |  5  |  *  |  5  |  *  |  5  |  *  |  *  |  *  |
++-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+
+|  5  |  *  |  *  |  *  |  *  |  *  |  *  |  4  |  *  |  4  |  *  |  *  |  *  |  *  |
++-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+
+|  6  |  *  |  *  |  *  |  *  |  *  |  *  |  *  |  *  |  *  |  *  |  *  |  2  |  *  |
++-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+
+|  7  |  *  |  *  |  *  |  *  |  *  |  *  |  *  |  *  |  2  |  *  |  *  |  *  |  *  |
++-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+
+|  8  |  *  |  *  |  *  |  *  |  *  |  *  |  *  |  *  |  *  |  *  |  *  |  4  |  *  |
++-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+
+|  9  |  *  |  *  |  *  |  *  |  *  |  *  |  *  |  *  |  *  |  *  |  5  |  *  |  *  |
++-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+
+|  10 |  *  |  *  |  *  |  *  |  *  |  *  |  *  |  *  |  *  |  *  |  *  |  *  |  1  |
++-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+
+|  11 |  *  |  *  |  *  |  *  |  *  |  *  |  *  |  *  |  *  |  *  |  *  |  *  |  2  |
++-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+
+|  12 |  *  |  *  |  *  |  *  |  *  |  *  |  *  |  *  |  *  |  *  |  *  |  *  |  *  |
++-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+-----+
+
+Vérification des arcs négatifs
+Aucun arc négatif trouvé
+
+Détection des circuits
+Points d’entrée :0
+Suppression du point d’entrée : 0
+Sommets restants :3 4 5 6 7 8 9 10 11 12
+Points d’entrée :1 2
+Suppression du point d’entrée : 1
+Sommets restants :3 5 6 7 8 9 10 11 12
+Points d’entrée :2 4
+Suppression du point d’entrée : 2
+Sommets restants :5 6 7 8 9 10 11 12
+Points d’entrée :4 3
+Suppression du point d’entrée : 4
+Sommets restants :6 8 10 11 12
+Points d’entrée :3 5 7 9
+Suppression du point d’entrée : 3
+Sommets restants :6 8 10 11 12
+Points d’entrée :5 7 9
+Suppression du point d’entrée : 5
+Sommets restants :8 10 11 12
+Points d’entrée :7 9 6
+Suppression du point d’entrée : 7
+Sommets restants :10 11 12
+Points d’entrée :9 6 8
+Suppression du point d’entrée : 9
+Sommets restants :11 12
+Points d’entrée :6 8 10
+Suppression du point d’entrée : 6
+Sommets restants :11 12
+Points d’entrée :8 10
+Suppression du point d’entrée : 8
+Sommets restants :12
+Points d’entrée :10 11
+Suppression du point d’entrée : 10
+Sommets restants :12
+Points d’entrée :11
+Suppression du point d’entrée : 11
+Aucun
+Points d’entrée :12
+Suppression du point d’entrée : 12
+Aucun
+Il n’y a pas de circuit.
+
+Calcul des rangs
+Pour chaque sommet : 
+Sommet 0 : Rang 0
+Sommet 1 : Rang 1
+Sommet 2 : Rang 1
+Sommet 3 : Rang 2
+Sommet 4 : Rang 2
+Sommet 5 : Rang 3
+Sommet 6 : Rang 4
+Sommet 7 : Rang 3
+Sommet 8 : Rang 4
+Sommet 9 : Rang 3
+Sommet 10 : Rang 4
+Sommet 11 : Rang 5
+Sommet 12 : Rang 6
+
+Calendrier au plus tôt
+Sommet 0 : 0
+Sommet 1 : 0
+Sommet 2 : 0
+Sommet 3 : 2 à partir de 2
+Sommet 4 : 3 à partir de 1
+Sommet 5 : 8 à partir de 4
+Sommet 7 : 8 à partir de 4
+Sommet 9 : 8 à partir de 4
+Sommet 6 : 12 à partir de 5
+Sommet 8 : 12 à partir de 5
+Sommet 10 : 13 à partir de 9
+Sommet 11 : 16 à partir de 8
+Sommet 12 : 18 à partir de 11
+
+Calendrier au plus tard
+Sommet 0 : 0 à partir de 1
+Sommet 1 : 0 à partir de 4
+Sommet 2 : 12 à partir de 3
+Sommet 3 : 14 à partir de 10
+Sommet 4 : 3 à partir de 5
+Sommet 5 : 8 à partir de 8
+Sommet 6 : 14 à partir de 11
+Sommet 7 : 10 à partir de 8
+Sommet 8 : 12 à partir de 11
+Sommet 9 : 12 à partir de 10
+Sommet 10 : 17 à partir de 12
+Sommet 11 : 16 à partir de 12
+Sommet 12 : 18
+
+Marges sur les arcs :
+Arc 0 -> 1 : Marge = 0
+Arc 0 -> 2 : Marge = 12
+Arc 1 -> 4 : Marge = 0
+Arc 2 -> 3 : Marge = 12
+Arc 3 -> 10 : Marge = 12
+Arc 4 -> 5 : Marge = 0
+Arc 4 -> 7 : Marge = 2
+Arc 4 -> 9 : Marge = 4
+Arc 5 -> 6 : Marge = 2
+Arc 5 -> 8 : Marge = 0
+Arc 6 -> 11 : Marge = 2
+Arc 7 -> 8 : Marge = 2
+Arc 8 -> 11 : Marge = 0
+Arc 9 -> 10 : Marge = 4
+Arc 10 -> 12 : Marge = 4
+Arc 11 -> 12 : Marge = 0
+
+Chemin(s) critique(s) :
+0 -> 1 -> 4 -> 5 -> 8 -> 11 -> 12

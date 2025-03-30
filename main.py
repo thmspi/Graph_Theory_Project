@@ -19,12 +19,14 @@ def main():
         f.display_matrix(matrix, total_vertices, trace)
    
         if not f.check_negative_arcs(matrix, total_vertices, trace):
-            print("Le graphe contient des arcs négatifs. Veuillez utiliser un autre tableau de contraintes.")
+            trace.append("Le graphe contient des arcs négatifs. Veuillez utiliser un autre tableau de contraintes.")
+            f.save_trace(filename, trace)
             continue
         
         has_cycle = f.detect_cycles(matrix, total_vertices, trace)
         if not has_cycle:
-            print("Le graphe n'est pas un graphe d'ordonnancement (circuit détecté). Veuillez utiliser un autre tableau de contraintes.")
+            trace.append("Le graphe n'est pas un graphe d'ordonnancement (circuit détecté). Veuillez utiliser un autre tableau de contraintes.")
+            f.save_trace(filename, trace)
             continue
 
         rank = f.ranks(matrix, total_vertices, trace)
@@ -38,18 +40,7 @@ def main():
 
         print("\nTraitement terminé pour ce tableau de contraintes.\n")
 
-        os.makedirs("traces", exist_ok=True)
-
-        match = re.search(r'\b([0-9]{1,2})\b', filename)
-        if match:
-            file_number = int(match.group())
-            print(file_number)
-        else:
-            print("Aucun nombre trouvé entre 0 et 99")
-
-        trace_path = os.path.join("traces", f"trace_{file_number}.txt")
-        f.write_trace(trace_path, trace)
-        print("Trace sauvegardée dans :", trace_path)
+        f.save_trace(filename, trace)
 
         print("Voulez-vous traiter un autre tableau ? (o/n)")
         answer = input().strip().lower()

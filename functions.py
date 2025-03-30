@@ -1,4 +1,6 @@
 import sys
+import os
+import re
 
 # The function works only if there is task id start is continuous and start from 1
 def read_file(filename):
@@ -346,4 +348,15 @@ def write_trace(trace_file, trace):
         f.write("Trace des itérations:\n")
         for line in trace:
             f.write(line + "\n")
+
+def save_trace(filename,trace):
+    os.makedirs("traces", exist_ok=True)
+    match = re.search(r'\b([0-9]{1,2})\b', filename)
+    if match:
+        file_number = int(match.group())
+    else:
+        print("Aucun nombre trouvé entre 0 et 99")
+    trace_path = os.path.join("traces", f"trace_{file_number}.txt")
+    write_trace(trace_path, trace)
+    print("Trace sauvegardée dans :", trace_path)
 
