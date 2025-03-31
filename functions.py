@@ -211,7 +211,7 @@ def ranks(matrix, total_vertices, trace):
             rank[u] = k
             for v in range(total_vertices):
                 if matrix[u][v] is not None:
-                    in_degree[v] -= 1 # We make the vertex u disappear, so v losse one predecessor
+                    in_degree[v] -= 1 # We make the vertex u disappear, so v lose one predecessor
                     if in_degree[v] == 0:
                         sorted_order.append(v) # New vertex without predecessors
 
@@ -263,24 +263,47 @@ def earliest_start_schedule (matrix, rank, total_vertices, trace):
 def latest_start_schedule(matrix, earliest_dates, total_vertices, trace):
     trace.append("\nCalendrier au plus tard")
     
-    # Initialize latest dates and chosen successors
-    latest_dates = {task_id: float('inf') for task_id in range(total_vertices)}
-    chosen_succ = {task_id: None for task_id in range(total_vertices)}  
+    # Compute a topological order using Kahn's algorithm.
+    in_degree = {i: 0 for i in range(total_vertices)}
+    for i in range(total_vertices):
+        for j in range(total_vertices):
+            if matrix[i][j] is not None:
+                in_degree[j] += 1
     
-    # Find the final task (omega) and set its latest date
-    omega = max(earliest_dates, key=earliest_dates.get)
-    latest_dates[omega] = earliest_dates[omega]  
+    queue = [i for i in range(total_vertices) if in_degree[i] == 0]
+    topo_order = []
     
-    # Sort tasks in descending order of earliest dates
-    sorted_tasks = sorted(range(total_vertices), key=lambda task_id: -earliest_dates[task_id])
+    while queue:
+        u = queue.pop(0)
+        topo_order.append(u)
+        for v in range(total_vertices):
+            if matrix[u][v] is not None:
+                in_degree[v] -= 1
+                if in_degree[v] == 0:
+                    queue.append(v)
     
-    # Calculate latest start dates for each task
-    for task_id in sorted_tasks:
+    if len(topo_order) != total_vertices:
+        raise ValueError("Graph is not a DAG")
+    
+    # Process tasks in reverse topological order.
+    reverse_order = topo_order[::-1]
+    
+    # Initialize latest_dates and chosen_succ.
+    latest_dates = {i: float('inf') for i in range(total_vertices)}
+    chosen_succ = {i: None for i in range(total_vertices)}
+    
+    # The final task (omega) is assumed to be the last in the topological order.
+    omega = topo_order[-1]
+    latest_dates[omega] = earliest_dates[omega]
+    
+    # Calculate latest start dates for each task.
+    for task_id in reverse_order:
         succs = [s for s in range(total_vertices) if matrix[task_id][s] is not None]
         if succs:
             best_succ = None
             best_val = float('inf')
             for s in succs:
+                # Since we're processing in reverse topological order, latest_dates[s] is already finalized.
                 val = latest_dates[s] - matrix[task_id][s]
                 if val < best_val:
                     best_val = val
@@ -288,12 +311,13 @@ def latest_start_schedule(matrix, earliest_dates, total_vertices, trace):
             latest_dates[task_id] = best_val
             chosen_succ[task_id] = best_succ
     
-    # Set the latest start date of the first task (alpha) to 0
-    alpha = 0  
+    # Set the latest start date of the first task (alpha) to 0.
+    # Assuming the first task is the first in the topological order.
+    alpha = topo_order[0]
     latest_dates[alpha] = 0
-    chosen_succ[alpha] = 1  
+    chosen_succ[alpha] = 1  # as in the original function
     
-    # Display
+    # Display the results.
     for t in range(total_vertices):
         if chosen_succ[t] is not None:
             trace.append(f"Sommet {t} : {latest_dates[t]} à partir de {chosen_succ[t]}")

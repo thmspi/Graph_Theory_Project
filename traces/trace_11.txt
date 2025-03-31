@@ -88,32 +88,33 @@ Sommet 9 : 16 à partir de 8
 
 Calendrier au plus tard
 Sommet 0 : 0 à partir de 1
-Sommet 1 : inf
-Sommet 2 : inf
-Sommet 3 : inf
-Sommet 4 : inf
-Sommet 5 : inf
-Sommet 6 : inf
-Sommet 7 : inf
-Sommet 8 : inf
-Sommet 9 : inf
+Sommet 1 : 0 à partir de 5
+Sommet 2 : 8 à partir de 3
+Sommet 3 : 9 à partir de 7
+Sommet 4 : 6 à partir de 2
+Sommet 5 : 1 à partir de 4
+Sommet 6 : 10 à partir de 8
+Sommet 7 : 13 à partir de 8
+Sommet 8 : 16 à partir de 9
+Sommet 9 : 16
 
 Marges sur les arcs :
-Arc 0 -> 1 : Marge = inf
-Arc 1 -> 2 : Marge = inf
-Arc 1 -> 4 : Marge = inf
-Arc 1 -> 5 : Marge = inf
-Arc 2 -> 3 : Marge = inf
-Arc 2 -> 8 : Marge = inf
-Arc 3 -> 7 : Marge = inf
-Arc 4 -> 2 : Marge = inf
-Arc 4 -> 6 : Marge = inf
-Arc 4 -> 8 : Marge = inf
-Arc 5 -> 4 : Marge = inf
-Arc 5 -> 6 : Marge = inf
-Arc 5 -> 7 : Marge = inf
-Arc 6 -> 8 : Marge = inf
-Arc 7 -> 8 : Marge = inf
-Arc 8 -> 9 : Marge = inf
+Arc 0 -> 1 : Marge = 0
+Arc 1 -> 2 : Marge = 7
+Arc 1 -> 4 : Marge = 5
+Arc 1 -> 5 : Marge = 0
+Arc 2 -> 3 : Marge = 0
+Arc 2 -> 8 : Marge = 7
+Arc 3 -> 7 : Marge = 0
+Arc 4 -> 2 : Marge = 0
+Arc 4 -> 6 : Marge = 2
+Arc 4 -> 8 : Marge = 8
+Arc 5 -> 4 : Marge = 0
+Arc 5 -> 6 : Marge = 4
+Arc 5 -> 7 : Marge = 7
+Arc 6 -> 8 : Marge = 2
+Arc 7 -> 8 : Marge = 0
+Arc 8 -> 9 : Marge = 0
 
 Chemin(s) critique(s) :
+0 -> 1 -> 5 -> 4 -> 2 -> 3 -> 7 -> 8 -> 9
