@@ -31,11 +31,12 @@ def main():
 
         rank = f.ranks(matrix, total_vertices, trace)
 
+
         earliest_dates = f.earliest_start_schedule(matrix, rank, total_vertices, trace)
         latest_dates = f.latest_start_schedule(matrix, earliest_dates, total_vertices, trace)
     
         margins = f.compute_margins(matrix, total_vertices, earliest_dates, latest_dates, trace)
-        f.compute_total_margins(earliest_dates, latest_dates, trace)
+        f.compute_total_margins(rank, matrix, earliest_dates, latest_dates, trace)
 
         f.find_critical_paths(matrix, total_vertices, margins, trace)
 

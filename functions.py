@@ -310,15 +310,50 @@ def compute_margins(weights, total_vertices, E, L, trace):
     return margins
 
 
-def compute_total_margins(E, L, trace):
-    # for  each arc (u, v) : Margin = L(v) - E(u)
-    trace.append("\nMarges totale des sommets :")
-    for s in range(len(L))  :
-        result = f"Marge du sommet {s} = {L[s] - E[s]}"
+def compute_total_margins(rank, weights,E, L,  trace):
+    n = len(weights)
 
-        trace.append(result)
+    # Extract durations from adjacency matrix
+    durations = []
+    for i in range(n):
+        duration = "-"
+        row = weights[i]
+        if isinstance(row, list):  # Ensure the row is a list
+            for val in row:
+                if val is not None:
+                    duration = val
+                    break
+        durations.append(duration)
 
+    # Prepare rows
+    vertices = list(range(n))
+    e_values = [E.get(i, "-") for i in vertices]
+    l_values = [L.get(i, "-") for i in vertices]
+    m_values = [l - e if isinstance(l, int) and isinstance(e, int) else "-" for e, l in zip(e_values, l_values)]
 
+    # Format helpers
+    def format_row(label, values):
+        return f"| {label:<8}" + "".join(f"| {str(v):>2} " for v in values) + "|"
+
+    def make_border():
+        return "+" + "-" * 9 + "+" + "+".join(["----"] * n) + "+"
+
+    # Build table
+    trace.append("\nRésumé des tâches :")
+    border = make_border()
+    trace.append(border)
+    trace.append(format_row("Vertex", vertices))
+    trace.append(border)
+    trace.append(format_row("Rank", rank))
+    trace.append(border)
+    trace.append(format_row("Duration", durations))
+    trace.append(border)
+    trace.append(format_row("Earliest", e_values))
+    trace.append(border)
+    trace.append(format_row("Latest", l_values))
+    trace.append(border)
+    trace.append(format_row("Margin", m_values))
+    trace.append(border)
 
 
 def find_critical_paths(matrix, total_vertices, margins, trace):
