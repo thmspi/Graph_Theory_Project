@@ -310,7 +310,7 @@ def compute_margins(weights, total_vertices, E, L, trace):
     return margins
 
 
-def compute_total_margins(weights, total_vertices, E, L, trace):
+def compute_total_margins(E, L, trace):
     # for  each arc (u, v) : Margin = L(v) - E(u)
     trace.append("\nMarges totale des sommets :")
     for s in range(len(L))  :
