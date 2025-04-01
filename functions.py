@@ -75,8 +75,6 @@ def build_graph(tasks):
     
     return matrix, total_vertices
 
-
-
 def display_graph_arcs(arcs, total_vertices, trace):
 
     # Print the header for graph creation
@@ -91,8 +89,6 @@ def display_graph_arcs(arcs, total_vertices, trace):
     # Print each arc in the format "source -> destination = weight"
     for arc in arcs:
         trace.append(f"{arc[0]} -> {arc[1]} = {arc[2]}")
-
-
 
 def display_matrix(matrix, total_vertices, trace):
     cell_width = 5  # Width of each cell
@@ -206,7 +202,6 @@ def ranks(matrix, total_vertices, trace):
     while entry_points:
         # Create a list of new vertices with the rank k+1
         sorted_order = []
-
         for u in entry_points:
             rank[u] = k
             for v in range(total_vertices):
@@ -313,6 +308,17 @@ def compute_margins(weights, total_vertices, E, L, trace):
                 margins[(u, v)] = margin
                 trace.append(f"Arc {u} -> {v} : Marge = {margin}")
     return margins
+
+
+def compute_total_margins(weights, total_vertices, E, L, trace):
+    # for  each arc (u, v) : Margin = L(v) - E(u)
+    trace.append("\nMarges totale des sommets :")
+    for s in range(len(L))  :
+        result = f"Marge du sommet {s} = {L[s] - E[s]}"
+
+        trace.append(result)
+
+
 
 
 def find_critical_paths(matrix, total_vertices, margins, trace):

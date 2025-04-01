@@ -134,5 +134,19 @@ Arc 9 -> 11 : Marge = 0
 Arc 10 -> 1 : Marge = 5
 Arc 10 -> 3 : Marge = 3
 
+Marges totale des sommets :
+Marge du sommet 0 = 0
+Marge du sommet 1 = 5
+Marge du sommet 2 = 7
+Marge du sommet 3 = 3
+Marge du sommet 4 = 11
+Marge du sommet 5 = 2
+Marge du sommet 6 = 7
+Marge du sommet 7 = 0
+Marge du sommet 8 = 0
+Marge du sommet 9 = 0
+Marge du sommet 10 = 3
+Marge du sommet 11 = 0
+
 Chemin(s) critique(s) :
 0 -> 7 -> 8 -> 9 -> 11

@@ -155,6 +155,22 @@ Arc 10 -> 11 : Marge = 0
 Arc 11 -> 13 : Marge = 0
 Arc 12 -> 13 : Marge = 0
 
+Marges totale des sommets :
+Marge du sommet 0 = 0
+Marge du sommet 1 = 0
+Marge du sommet 2 = 0
+Marge du sommet 3 = 0
+Marge du sommet 4 = 0
+Marge du sommet 5 = 0
+Marge du sommet 6 = 0
+Marge du sommet 7 = 18
+Marge du sommet 8 = 8
+Marge du sommet 9 = 0
+Marge du sommet 10 = 0
+Marge du sommet 11 = 0
+Marge du sommet 12 = 0
+Marge du sommet 13 = 0
+
 Chemin(s) critique(s) :
 0 -> 1 -> 3 -> 9 -> 10 -> 11 -> 13
 0 -> 1 -> 4 -> 5 -> 6 -> 12 -> 13

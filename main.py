@@ -35,7 +35,8 @@ def main():
         latest_dates = f.latest_start_schedule(matrix, earliest_dates, total_vertices, trace)
     
         margins = f.compute_margins(matrix, total_vertices, earliest_dates, latest_dates, trace)
-        
+        f.compute_total_margins(matrix, total_vertices, earliest_dates, latest_dates, trace)
+
         f.find_critical_paths(matrix, total_vertices, margins, trace)
 
         print("\nTraitement terminé pour ce tableau de contraintes.\n")
